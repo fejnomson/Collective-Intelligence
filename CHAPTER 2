@@ -1,0 +1,53 @@
+# Building a del.icio.us Link Recommender
+# Page 19 in the PDF version I found
+
+
+# had to install pydelicious via command prompt, so using python 2.7 thru
+# powershell instead of the (fantastic) iPython suite
+# Maybe deal with installing on iPython later
+# So go to C:\, then type in python, then go from there
+
+import pydelicious
+pydelicious.get_popular(tag = 'programming')
+
+# Want to find people who post frequently and have similar posts
+# make script called deliciousrec.py
+# Code for the file is below
+from deliciousrec import *
+delusers = initializeUserDict('programming')
+# I think the pydelicous API is out of date, or maybe it's my version
+#   of python. Either way, don't think it's worth getting stuck here,
+#   probably best to just skip it and come back to it later.
+
+# ITEM BASED FILTERING, starting p 22
+# By item, not by user.
+# So a user picks an item, this'd show similar items.
+# The labor-intensive work of finding similar items can happen at better
+#   times (e.g. overnight); whereas user-based would have to happen in 
+#   more real time.
+
+# Everything is so scrambled with this chapter that I'm just gonna skip it
+#   and come back to it later.
+# The exercises look cool, and are probably super useful for learning this
+#   on a more muscle memory level, but I think I'm gonna write this chaper
+#   off for now.
+
+def calculateSimilarItems(prefs, n = 10):
+	# Create dictionary of items showing which other items they are most
+	# 	similar to.
+	result = {}
+
+	# Invert preference matrix to be item-centric
+	itemPrefs = transformPrefs(prefs)
+	c = 0
+	for item in itemPrefs:
+		# Status updates for large datasets
+		c += 1
+		if c%100 == 0: print("%d / %d" % (c, len(itemPrefs)))
+		# Find the most similar items to this one
+		scores = topMatches(itemPrefs, item, n = n, similarity = sim_distance)
+		result[item] = scores
+	return(result)
+
+
+
