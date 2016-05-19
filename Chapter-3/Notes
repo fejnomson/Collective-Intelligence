@@ -8,8 +8,3 @@
 # Pigeonholing the Bloggers
 # Put blogs into clusters based on word frequencies
 # To do similar subjects and styles
-
-# As expected, didn't find the data where it should be and the XML parsing
-#   isn't in iPython. But found it here:
-https://raw.githubusercontent.com/arthur-e/Programming-Collective-Intelligence/master/chapter3/blogdata.txt
-https://raw.githubusercontent.com/arthur-e/Programming-Collective-Intelligence/master/chapter3/feedlist.txt
