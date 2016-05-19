@@ -8,6 +8,9 @@
 # The Python install used will be a source of recurring tension. But
 #   will use iPython at work (or home) whereever possible, using
 #   conda install <package name> wherever possible.
+# As expected, didn't find the data where it should be. But found it here:
+#   https://raw.githubusercontent.com/arthur-e/Programming-Collective-Intelligence/master/chapter3/blogdata.txt
+#   https://raw.githubusercontent.com/arthur-e/Programming-Collective-Intelligence/master/chapter3/feedlist.txt
 # I think this assumes that the two text files are saved in the
 #   working directory.
 #     feedlist.txt
