@@ -33,7 +33,14 @@ recommendations.getRecommendations(
   recommendations.critics, 'Toby', similarity = recommendations.sim_distnace
 )
 
+# Transform from critic : {list of movies} to movie : {list of critics}
+movies = recommendations.transformPrefs(recommendations.critics)
+# Return list of similarly rated movies
+recommendations.topMatches(movies, 'Superman Returns')
 
+# Recommend critics for a movie
+# Intuition: people who'd like something
+recommendations.getRecommendations(movies, 'Just My Luck')
 
-
+# <Skip link recommender for now? Package / module installation headaches>
 
