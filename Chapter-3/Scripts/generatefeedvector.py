@@ -33,6 +33,11 @@
 #   directory.
 import feedparser
 import re
+import os
+
+print(os.getcwd())
+print('\n')
+print(os.listdir())
 
 
 # Returns title and dictionary of word counts for an RSS feed
@@ -62,12 +67,10 @@ def getwords(html):
   # Convert to lowercase
   return([word.lower() for word in words if word!=''])
 
+
 apcount={}
 wordcounts={}
 for feedurl in file('feedlist.txt'):
-  # Not sure what file() should be in python 3, BUT the idea here is to iterate
-  #   thru each line in the .txt file. Can probs figure out a way to do that.
-  #   each line here is just a string containing a url.
   title,wc=getwordcounts(feedurl)
   wordcounts[title]=wc
   for word,count in wc.items():
@@ -81,7 +84,12 @@ for w,bc in apcount.items():
   frac=float(bc)/len(feedlist)
   if frac>0.1 and frac<0.5: wordlist.append(w)
 
-out=file('blogdata.txt','w')
+
+# out=file('blogdata.txt','w') # original
+# File isn't anything in python 3, need alternative
+#   open(<path>, 'w') # open for writing
+#   open(<path>, 'x') # create new file, open for writing
+out = open('blogdata.txt','x')
 out.write('Blog')
 for word in wordlist: out.write('\t%s' % word)
 out.write('\n')
