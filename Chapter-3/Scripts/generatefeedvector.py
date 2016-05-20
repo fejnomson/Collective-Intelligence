@@ -126,13 +126,40 @@ for w,bc in apcount.items():
 # Primer on file reading:
 #  for i in open('feedlist.txt'): # default for open() is to open for reading
 #    print(i)
+# Little example of the format of the blog data matrix
+# Uses 999 instead of the actual word count
+#  t_list = ['a', 'b', 'c', 'd', 'e']
+#  t_dict = {
+#    'first' : 'a', 'second' : 'b', 'third' : 'c', 'fourth' : 'd', 'fifth' : 'e'
+#  }
+#  out = open('testfile.txt', 'w')
+#  out.write('blog')
+#  for i in t_list: out.write('\t%s' % i)
+#  out.write('\n')
+#  for b, w in t_dict.items():
+#    out.write(b)
+#    for w in t_list:
+#      out.write('\t%d' % 999)
+#    out.write('\n')
+#  out.close()
 out = open('blogdata.txt','w') 
 out.write('Blog')
 for word in wordlist: out.write('\t%s' % word)
+# Write the words, separating with tabs. (Kinda like x axis.)
 out.write('\n')
-for blog,wc in wordcounts.items():
+# Write a new line to separate the words you're counting with the rest of the doc
+for blog, wc in wordcounts.items():
+  # This loops thru the dict_items object of the wordcounts.
+  # Wordcounts is a nested dictionary. Has a dictionary for each blog, that
+  #   contains a dictionary of {<word> : <word count>} combinations.
+  # So here, blog is the blog name, and wc is the dictionary of words and
+  #   their counts.
   out.write(blog)
+  # Write a line(?) for each blog name
   for word in wordlist:
+    # For every word in the master word list,
     if word in wc: out.write('\t%d' % wc[word])
+    # Write the word count if the word is in this blogs word count dictionary
     else: out.write('\t0')
+    # Otherwise just write zero
   out.write('\n')
