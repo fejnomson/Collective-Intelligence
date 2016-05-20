@@ -9,22 +9,31 @@ import importlib
 # importlib.reload(recommendations) # module only loaded once per interactive session
 import recommendations
 
+# Dictionary of movie critics
 recommendations.critics
 recommendations.critics['Jack Matthews']
 recommendations.critics['Jack Matthews']['Snakes on a Plane']
 
-recommendations.sim_distance
+# Returns euclidian disstance / similarity score for two critics
 recommendations.sim_distance(
   recommendations.critics, 'Lisa Rose', 'Gene Seymour'
 )
 
-recommendations.sim_pearson
+# Returns pearson correlation / similarity score for two critics
 recommendations.sim_pearson(
   recommendations.critics, 'Lisa Rose', 'Gene Seymour'
 )
 
-
+# Returns most similar movie critics, along with similarity score
 recommendations.topMatches(recommendations.critics, 'Toby', n = 3)
+
+# Returns a list of recommended movies, and it guesses the rating for each
+recommendations.getRecommendations(recommendations.critics, 'Toby')
+recommendations.getRecommendations(
+  recommendations.critics, 'Toby', similarity = recommendations.sim_distnace
+)
+
+
 
 
 
