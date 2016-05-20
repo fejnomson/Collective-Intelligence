@@ -136,8 +136,33 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
   return(rankings)
 
 
-
-
+# Transform from:
+#  {
+#    'Lisa Rose': {
+#      'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5
+#    },
+#    'Gene Seymour': {
+#      'Lady in the Water': 3.0, 'Snakes on a Plane': 3.5
+#    }
+#  }
+# to:
+#  {
+#    'Lady in the Water': {
+#      'Lisa Rose':2.5,'Gene Seymour':3.0
+#    },
+#    'Snakes on a Plane': {
+#      'Lisa Rose':3.5,'Gene Seymour':3.5
+#    }
+#  }
+def transformPrefs(prefs):
+  result={}
+  for person in prefs:
+    for item in prefs[person]:
+      result.setdefault(item,{})
+      
+      # Flip item and person
+      result[item][person]=prefs[person][item]
+  return(result)
 
 
 
