@@ -1,0 +1,17 @@
+
+# Set up working dir
+import os
+os.getcwd()
+os.chdir('//firm.seyfarth.com/DFS/CHIUsers/JMonson/My Documents/PythonTemp')
+os.getcwd()
+
+
+import recommendations
+
+recommendations.critics
+recommendations.critics['Jack Matthews']
+recommendations.critics['Jack Matthews']['Snakes on a Plane']
+
+recommendations.sim_distance
+
+recommendations.topMatches(recommendations.critics, 'Toby', n = 3)
