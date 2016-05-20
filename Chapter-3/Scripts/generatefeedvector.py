@@ -98,6 +98,6 @@ for blog,wc in wordcounts.items():
   for word in wordlist:
     if word in wc: out.write('\t%d' % wc[word])
     else: out.write('\t0')
-out.write('\n')
+  out.write('\n')
 
 # -----------------------------------------------------------------------------
