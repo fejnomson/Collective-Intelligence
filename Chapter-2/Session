@@ -13,5 +13,11 @@ recommendations.critics['Jack Matthews']
 recommendations.critics['Jack Matthews']['Snakes on a Plane']
 
 recommendations.sim_distance
+recommendations.sim_distance(
+  recommendations.critics, 'Lisa Rose', 'Gene Seymour'
+)
 
 recommendations.topMatches(recommendations.critics, 'Toby', n = 3)
+
+
+
