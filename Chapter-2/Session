@@ -5,7 +5,8 @@ os.getcwd()
 os.chdir('//firm.seyfarth.com/DFS/CHIUsers/JMonson/My Documents/PythonTemp')
 os.getcwd()
 
-
+import importlib
+# importlib.reload(recommendations) # module only loaded once per interactive session
 import recommendations
 
 recommendations.critics
@@ -16,6 +17,12 @@ recommendations.sim_distance
 recommendations.sim_distance(
   recommendations.critics, 'Lisa Rose', 'Gene Seymour'
 )
+
+recommendations.sim_pearson
+recommendations.sim_pearson(
+  recommendations.critics, 'Lisa Rose', 'Gene Seymour'
+)
+
 
 recommendations.topMatches(recommendations.critics, 'Toby', n = 3)
 
