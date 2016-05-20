@@ -65,6 +65,9 @@ def getwords(html):
 apcount={}
 wordcounts={}
 for feedurl in file('feedlist.txt'):
+  # Not sure what file() should be in python 3, BUT the idea here is to iterate
+  #   thru each line in the .txt file. Can probs figure out a way to do that.
+  #   each line here is just a string containing a url.
   title,wc=getwordcounts(feedurl)
   wordcounts[title]=wc
   for word,count in wc.items():
@@ -89,3 +92,4 @@ for blog,wc in wordcounts.items():
     else: out.write('\t0')
 out.write('\n')
 
+# -----------------------------------------------------------------------------
