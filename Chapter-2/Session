@@ -43,4 +43,24 @@ recommendations.topMatches(movies, 'Superman Returns')
 recommendations.getRecommendations(movies, 'Just My Luck')
 
 # <Skip link recommender for now? Package / module installation headaches>
+# Can't get pydelicious on my anaconda iPython for python 3 right now
+
+# Find similar items (movies)
+# You can store these data and refer back to it without needing to recompute
+# So use the items dictionary to get similarities
+# Intuition:
+#   For movies that you haven't seen, you take the similarity (correlation
+#     if use Pearson) between the unseen movie and one you have seen, then
+#     multiply your rating of the one you've seen by the correlation.
+#   So You see Snakes, rate it 4.5; there's a 0.182 similarity between
+#     Snakes and Night, so your 'rating' for Night is 4.5*0.182 = 0.819.
+#   Then, you multiply your rating * the similarity for the other movies
+#     you've seen. Sum the total similarity and the total 'ratings' and
+#     divide the 'ratings' by the similarity to normalize.
+#   I think the takeaway is that you can predict values if you have some
+#     'preferences' and similarity between your preferences and items you
+#     haven't rated.
+itemsim = recommendations.calculateSimilarItems(recommendations.critics)
+
+
 
