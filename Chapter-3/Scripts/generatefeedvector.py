@@ -23,6 +23,11 @@
 #   blog-word combination. So try to run this with feedlist
 #   only, which I could copy-paste and save into a new text
 #   file locally.
+# UPDATE: The other issue is that I'm using iPython python 3
+#   instead of non-iPython python 2, and the book is in python
+#   2. So if there's a subtle difference, it might be over my
+#   head. Pretty sure calling python from the command line
+#   invokes python 3.
 # You'd run this from the command line with something like:
 #   python generatefeedvector.py, after getting to the right working
 #   directory.
@@ -46,7 +51,7 @@ def getwordcounts(url):
     for word in words:
       wc.setdefault(word,0)
       wc[word]+=1
-  return d.feed.title,wc
+  return(d.feed.title,wc)
 
 
 def getwords(html):
@@ -55,7 +60,7 @@ def getwords(html):
   # Split words by all non-alpha characters
   words=re.compile(r'[^A-Z^a-z]+').split(txt)
   # Convert to lowercase
-  return [word.lower() for word in words if word!='']
+  return([word.lower() for word in words if word!=''])
 
 apcount={}
 wordcounts={}
