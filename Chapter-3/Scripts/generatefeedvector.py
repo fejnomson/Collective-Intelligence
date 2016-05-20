@@ -15,6 +15,14 @@
 #   working directory.
 #     feedlist.txt
 #     blogdata.txt
+# UPDATE: I think blogdata.txt isn't necessary for doing this;
+#   feedlist.txt should be sufficient. You can use the pre-made
+#   blogdata.txt file if you don't want to run the code to make
+#   it yourself. It's just a matrix of the blog name, the words
+#   you're interested in, and the count of the words for each
+#   blog-word combination. So try to run this with feedlist
+#   only, which I could copy-paste and save into a new text
+#   file locally.
 # You'd run this from the command line with something like:
 #   python generatefeedvector.py, after getting to the right working
 #   directory.
