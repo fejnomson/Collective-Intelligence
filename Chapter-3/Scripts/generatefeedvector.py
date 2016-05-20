@@ -41,11 +41,15 @@ print(os.listdir())
 
 
 # Returns title and dictionary of word counts for an RSS feed
+# getwordcounts('http://battellemedia.com/index.xml')
+# url = 'http://battellemedia.com/index.xml' # shouldn't work - can't access site
+# url = 'http://blog.outer-court.com/rss.xml' # should work
+# url = 'http://blogs.abcnews.com/theblotter/index.rdf'
 def getwordcounts(url):
   # Parse the feed
   d=feedparser.parse(url)
   wc={}
-  
+
   # Loop over all the entries
   for e in d.entries:
     if 'summary' in e: summary=e.summary
@@ -56,7 +60,17 @@ def getwordcounts(url):
     for word in words:
       wc.setdefault(word,0)
       wc[word]+=1
-  return(d.feed.title,wc)
+
+  # My guess is that some of these blogs have been discontinued since this book
+  #   was written in 2007 (9 years ago). That or work blocks my access to some of
+  #   these sites.
+  # Need to account for. This is super sketchy, but:
+  if 'title' not in d.feed: # title has to be string for subsequent stuff to work
+    d.feed['title'] = '<no title>'
+  if bool(wc) == False: # Has to be dictionary. First is the 'word' that you're storing the word counts under; second is the number of times it appears. So if I can't access the blog, just saying something like '<nowords>' showed up 0 times.
+    wc['<no words>'] = 0
+
+  return(d.feed.title, wc)
 
 
 def getwords(html):
@@ -68,28 +82,51 @@ def getwords(html):
   return([word.lower() for word in words if word!=''])
 
 
+# For testing:
+# feedurl = 'http://battellemedia.com/index.xml' # shouldn't work - can't access site
+# feedurl = 'http://blog.outer-court.com/rss.xml' # should work
+# feedurl = 'http://blogs.abcnews.com/theblotter/index.rdf'
 apcount={}
 wordcounts={}
-for feedurl in file('feedlist.txt'):
-  title,wc=getwordcounts(feedurl)
-  wordcounts[title]=wc
-  for word,count in wc.items():
-    apcount.setdefault(word,0)
-    if count>1:
-      apcount[word]+=1
+counter = 0
+for feedurl in open('feedlist.txt'): # file # old
+  counter += 1
+  title, wc = getwordcounts(feedurl)
+  wordcounts[title] = wc
+  for word, count in wc.items():
+    apcount.setdefault(word, 0)
+    if count > 1:
+      apcount[word] += 1
 
 
+feedlist = list(wordcounts.keys())
+counter - len(feedlist) # lost 30 blogs...Yikes
 wordlist=[]
 for w,bc in apcount.items():
+  # Don't want to include words that never show up (e.g. 'ingratiate') or that
+  #   always show up (e.g. 'the', 'a'), because neither are informative.
+  # Adjusting by %s, so if a word constitutes less than 10% or more than 50%
+  #   of words in the blog, don't include.
   frac=float(bc)/len(feedlist)
+  # feedlist isn't defined anywhere, but guessing that it's just the number of feeds we're looking at
   if frac>0.1 and frac<0.5: wordlist.append(w)
 
 
 # out=file('blogdata.txt','w') # original
 # File isn't anything in python 3, need alternative
-#   open(<path>, 'w') # open for writing
+#   open(<path>, 'w') # open for writing. Write over existing file with same name
 #   open(<path>, 'x') # create new file, open for writing
-out = open('blogdata.txt','x')
+# Primer on file writing:
+#   outtest = open('testfile.txt', 'w')
+#   outtest.write('Blog')
+#   for i in ['word1', 'word2', 'word3']:
+#     outtest.write('\n')
+#     outtest.write(i)
+#   outtest.close()
+# Primer on file reading:
+#  for i in open('feedlist.txt'): # default for open() is to open for reading
+#    print(i)
+out = open('blogdata.txt','w') 
 out.write('Blog')
 for word in wordlist: out.write('\t%s' % word)
 out.write('\n')
@@ -99,5 +136,3 @@ for blog,wc in wordcounts.items():
     if word in wc: out.write('\t%d' % wc[word])
     else: out.write('\t0')
   out.write('\n')
-
-# -----------------------------------------------------------------------------
