@@ -114,3 +114,36 @@ employees = {
 recommendations.topMatches(employees, 'jeff')
 recommendations.topMatches(employees, 'camille')
 
+employees2 = {
+  # So look for similarity between employees, based on hours worked on each matter.
+  # The idea being that you can identify similar people based on whether they're
+  #   billing similar hours on similar cases, to identify teams or groups.
+  'jeff':{
+    'DHL-Mejia':70,
+    'DHL-Martinez':120,
+    'Kindred-Rogers':200,
+    'Exel.VP':80
+  },
+  'kathleen':{
+    'DHL-Mejia':50,
+    'DHL-Martinez':100,
+    'Kindred-Rogers':220,
+    'Exel.VP':120
+  },
+  'amy':{
+    'DHL-Mejia':5,
+    'DHL-Martinez':8,
+    'HP-Oracle':100,
+    'CNA-G':70,
+    'Chamber-of-Commerce':10
+  },
+  'camille':{
+    'HP-Oracle':200,
+    'CNA-G':120,
+    'Chamber-of-Commerce':50
+  }
+}
+recommendations.topMatches(employees2, 'jeff', similarity = recommendations.sim_distance)
+recommendations.topMatches(employees2, 'jeff', similarity = recommendations.sim_pearson)
+recommendations.topMatches(employees2, 'camille', similarity = recommendations.sim_distance)
+recommendations.topMatches(employees2, 'camille', similarity = recommendations.sim_pearson)
